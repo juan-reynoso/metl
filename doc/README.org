@@ -1,0 +1,144 @@
+* A sample project in Common Lisp
+* Create the project 
+* First we need to load quickproject
+#+begin_example
+(ql:quickload "quickproject")
+To load "quickproject":
+  Load 1 ASDF system:
+    quickproject
+; Loading "quickproject"
+
+("quickproject")
+
+#+end_example
+* Create the project called metl under the directory ~/src/lisp/
+#+begin_example
+
+(quickproject:make-project #p"~/src/lisp/metl/" :depends-on '(hunchentoot yaclml parenscript postmodern))
+
+"metl"
+#+end_example
+
+quickproject has created some files:
+- metl.asd
+- metl.lisp
+- package.lisp
+- README.md
+
+* Create the src directory under ~/src/lisp/metl/
+
+#+begin_example
+mkdir src 
+
+#+end_example
+
+* Create the directories under ~/src/lisp/metl/src/
+
+#+begin_example
+cd src
+
+mkdir app web-server
+
+#+end_example
+
+* Create the directories under ~/src/lisp/metl/src/app/
+#+begin_example
+cd ~/src/lisp/metl/src/app/
+
+mkdir model view controller
+#+end_example
+
+* Move  metl.lisp package.lisp files to src directory
+#+begin_example
+cd ~/src/lisp/metl
+cp metl.lisp package.lisp src
+#+end_example
+* Working with ASD 
+ASDF is what Common Lisp hackers use to build and load software.
+
+ASDF is the build system. It lets you define projects
+ – called systems – along with their metadata, dependencies, their 
+source code files, and the order in which those files are loaded.
+
+Modules are directories, and files are Lisp files.
+
+For intance in ASDF
+:module :src  is src directory
+
+and
+
+(:file "a-file") is a lisp file
+
+so the met.asd file has:
+
+#+begin_example
+(asdf:defsystem #:metl
+  :description "A sample project in Common Lisp"
+  :author "Juan Reynoso juan@ikkiware.com"
+  :maintainer "Juan Reynoso juan@ikkiware.com"
+  :license "MIT"
+  :version "0.0.1"
+  :homepage "https://github.com/juan-reynoso/metl"
+  :serial t
+  :depends-on (#:hunchentoot #:yaclml #:parenscript #:postmodern)
+  :components (
+	       ;; src directory
+	       (:module :src 
+		:components
+		((:file "package")
+		 (:file "metl")
+		 ;; web-server directory
+		 (:module :web-server
+		  :components
+		  ((:file "web-server")))
+		 ;; /src/app directory
+		 (:module :app
+		  :components
+		  (;; /src/app/model/ directory
+		   (:module :model 
+		    :components
+			    ((:file "model")))
+		   ;; /src/app/view/ directory
+		   (:module :view 
+		    :components
+			    ((:file "with-html")
+			     (:file "index")
+			     (:file "ajax-example")))
+		   ;; /src/app/controller/ directory
+		   (:module :controller 
+		    :components
+			    ((:file "controller")))))))))
+#+end_example
+
+If you explore each directory you will see some lisp files.
+
+* Load the project
+
+#+begin_example
+(ql:quickload "metl")
+To load "metl":
+  Load 1 ASDF system:
+    metl
+; Loading "metl"
+[package metl]
+("metl")
+#+end_example
+
+* Use the package
+#+begin_example
+(in-package :metl)
+#+end_example
+
+* Start the web server
+#+begin_example
+(start-web-server)
+#+end_example
+
+** Open you browser:
+
+   http://localhost:8090/index.html
+   or
+   http://localhost:8090/ajax-example.html
+
+
+
