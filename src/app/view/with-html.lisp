@@ -14,6 +14,10 @@
 		      :href "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css")
 	      (<:script :type "text/javascript"
 			:src "https://code.jquery.com/jquery-3.6.0.min.js")
+	      (<:script :type "text/javascript"
+			:src "/js/hls.min.js")
+	      (<:script :type "text/javascript"
+			:src "/js/video-example.js")
 	      (<:title (<:as-html ,title)))
 	     (<:body
 	      ,@body))))

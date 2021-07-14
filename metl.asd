@@ -31,7 +31,8 @@
 		    :components
 			    ((:file "with-html")
 			     (:file "index")
-			     (:file "ajax-example")))
+			     (:file "ajax-example")
+			     (:file "video-hls")))
 		   ;; /src/app/controller/ directory
 		   (:module :controller 
 		    :components

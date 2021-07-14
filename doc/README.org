@@ -142,3 +142,41 @@ To load "metl":
 
 
 
+* HTTP live streaming
+HTTP live streaming (HLS) is a widely used video streaming protocol that can run on
+
+almost any server and is supported by most devices. HLS allows client devices to 
+
+seamlessly adapt to changing network conditions by raising or lowering the quality
+
+of the stream.
+
+You can read the web page:
+
+https://www.cloudflare.com/learning/video/what-is-http-live-streaming
+
+** Install package ffmpeg
+#+begin_example
+aptitude install ffmpeg
+#+end_example
+
+
+** Get the hls.js file
+The last version is: v1.0.7.
+
+You need to dowload the file release.zip.
+
+https://github.com/video-dev/hls.js/releases
+
+After that you need to unzip the file under the directory release/dist/
+
+you can see the files hls.js and hls.min.js
+
+So you need copy the file to wwwroot/js directory.
+
+** Creating HLS Playlists (m3u8) using FFmpeg
+You need to create the directory hls-video under wwwroot/video/
+
+#+begin_example
+ffmpeg -i big_buck_bunny.mp4 -c:v libx264 -crf 27 -preset veryfast -c:a aac -b:a 128k -f hls -hls_time 6 -hls_playlist_type event hls-video/index.m3u8
+#+end_example
