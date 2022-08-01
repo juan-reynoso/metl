@@ -156,13 +156,31 @@ You can read the web page:
 https://www.cloudflare.com/learning/video/what-is-http-live-streaming
 
 ** Install package ffmpeg
+FFmpeg: Tools for transcoding, streaming and playing of multimedia files
+
+FFmpeg is the leading multimedia framework, able to decode, encode, transcode, mux, demux,
+
+stream, filter and play pretty much anything that humans and machines havecreated. It supports
+
+the most obscure ancient formats up to the cutting edge.
+
+https://ffmpeg.org/
+
 #+begin_example
 aptitude install ffmpeg
 #+end_example
 
+** HLS.js
+HLS.js is a JavaScript library that implements an HTTP Live Streaming client. It relies on HTML5 video and MediaSource Extensions for playback.
 
-** Get the hls.js file
-The last version is: v1.0.7.
+https://github.com/video-dev/hls.js
+
+*** HLS.js  Demo
+
+https://hls-js.netlify.com/demo
+    
+*** Get the hls.js file
+The last version is: v1.2.0.
 
 You need to dowload the file release.zip.
 
@@ -172,11 +190,16 @@ After that you need to unzip the file under the directory release/dist/
 
 you can see the files hls.js and hls.min.js
 
-So you need copy the file to wwwroot/js directory.
+So you need to copy the file hls.min.js to wwwroot/js directory.
 
-** Creating HLS Playlists (m3u8) using FFmpeg
+*** Creating HLS Playlists (m3u8) using FFmpeg
 You need to create the directory hls-video under wwwroot/video/
 
 #+begin_example
 ffmpeg -i big_buck_bunny.mp4 -c:v libx264 -crf 27 -preset veryfast -c:a aac -b:a 128k -f hls -hls_time 6 -hls_playlist_type event hls-video/index.m3u8
 #+end_example
+
+*** Example
+In order to see the HLS example copy and paste the link in your browser:
+
+http://localhost:8090/video-hls.html

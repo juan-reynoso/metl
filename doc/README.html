@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-07-14 mié 17:58 -->
+<!-- 2022-08-01 lun 14:17 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>&lrm;</title>
@@ -40,7 +40,7 @@
   }
   pre.src {
     position: relative;
-    overflow: visible;
+    overflow: auto;
     padding-top: 1.2em;
   }
   pre.src:before {
@@ -52,7 +52,7 @@
     padding: 3px;
     border: 1px solid black;
   }
-  pre.src:hover:before { display: inline;}
+  pre.src:hover:before { display: inline; margin-top: 14px;}
   /* Languages per Org manual */
   pre.src-asymptote:before { content: 'Asymptote'; }
   pre.src-awk:before { content: 'Awk'; }
@@ -194,50 +194,26 @@
   /*]]>*/-->
 </style>
 <script type="text/javascript">
-/*
-@licstart  The following is the entire license notice for the
-JavaScript code in this tag.
-
-Copyright (C) 2012-2020 Free Software Foundation, Inc.
-
-The JavaScript code in this tag is free software: you can
-redistribute it and/or modify it under the terms of the GNU
-General Public License (GNU GPL) as published by the Free Software
-Foundation, either version 3 of the License, or (at your option)
-any later version.  The code is distributed WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS
-FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
-
-As additional permission under GNU GPL version 3 section 7, you
-may distribute non-source (e.g., minimized or compacted) forms of
-that code without the copy of the GNU GPL normally required by
-section 4, provided you include this license notice and a URL
-through which recipients can access the Corresponding Source.
-
-
-@licend  The above is the entire license notice
-for the JavaScript code in this tag.
-*/
+// @license magnet:?xt=urn:btih:1f739d935676111cfff4b4693e3816e664797050&amp;dn=gpl-3.0.txt GPL-v3-or-Later
 <!--/*--><![CDATA[/*><!--*/
- function CodeHighlightOn(elem, id)
- {
-   var target = document.getElementById(id);
-   if(null != target) {
-     elem.cacheClassElem = elem.className;
-     elem.cacheClassTarget = target.className;
-     target.className = "code-highlighted";
-     elem.className   = "code-highlighted";
-   }
- }
- function CodeHighlightOff(elem, id)
- {
-   var target = document.getElementById(id);
-   if(elem.cacheClassElem)
-     elem.className = elem.cacheClassElem;
-   if(elem.cacheClassTarget)
-     target.className = elem.cacheClassTarget;
- }
-/*]]>*///-->
+     function CodeHighlightOn(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.add("code-highlighted");
+         target.classList.add("code-highlighted");
+       }
+     }
+     function CodeHighlightOff(elem, id)
+     {
+       var target = document.getElementById(id);
+       if(null != target) {
+         elem.classList.remove("code-highlighted");
+         target.classList.remove("code-highlighted");
+       }
+     }
+    /*]]>*///-->
+// @license-end
 </script>
 </head>
 <body>
@@ -246,42 +222,48 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org186c8e4">1. A sample project in Common Lisp</a></li>
-<li><a href="#org62b9e7b">2. Create the project</a></li>
-<li><a href="#org21544ff">3. First we need to load quickproject</a></li>
-<li><a href="#org17f99f7">4. Create the project called metl under the directory ~/src/lisp/</a></li>
-<li><a href="#org873ae59">5. Create the src directory under ~/src/lisp/metl/</a></li>
-<li><a href="#org926162b">6. Create the directories under ~/src/lisp/metl/src/</a></li>
-<li><a href="#orgd66fac3">7. Create the directories under ~/src/lisp/metl/src/app/</a></li>
-<li><a href="#orgfbf31c1">8. Move  metl.lisp package.lisp files to src directory</a></li>
-<li><a href="#orgda5bf43">9. Working with ASD</a></li>
-<li><a href="#org37fc72e">10. Load the project</a></li>
-<li><a href="#org4ff3332">11. Use the package</a></li>
-<li><a href="#orgb12cd4d">12. Start the web server</a>
+<li><a href="#org1380e0f">1. A sample project in Common Lisp</a></li>
+<li><a href="#orge079352">2. Create the project</a></li>
+<li><a href="#org6fc25c9">3. First we need to load quickproject</a></li>
+<li><a href="#orgd62c2f9">4. Create the project called metl under the directory ~/src/lisp/</a></li>
+<li><a href="#org67fc6e5">5. Create the src directory under ~/src/lisp/metl/</a></li>
+<li><a href="#orgba4b333">6. Create the directories under ~/src/lisp/metl/src/</a></li>
+<li><a href="#orgd097026">7. Create the directories under ~/src/lisp/metl/src/app/</a></li>
+<li><a href="#org6f53958">8. Move  metl.lisp package.lisp files to src directory</a></li>
+<li><a href="#org7715412">9. Working with ASD</a></li>
+<li><a href="#org330ea51">10. Load the project</a></li>
+<li><a href="#org6b794f0">11. Use the package</a></li>
+<li><a href="#orgf858b97">12. Start the web server</a>
 <ul>
-<li><a href="#orgf91bbea">12.1. Open you browser:</a></li>
+<li><a href="#org85ea136">12.1. Open you browser:</a></li>
 </ul>
 </li>
-<li><a href="#org3dadb9b">13. HTTP live streaming</a>
+<li><a href="#orgdb81ad6">13. HTTP live streaming</a>
 <ul>
-<li><a href="#org8400f37">13.1. Install package ffmpeg</a></li>
-<li><a href="#org2c9c154">13.2. Get the hls.js file</a></li>
-<li><a href="#org17ee62e">13.3. Creating HLS Playlists (m3u8) using FFmpeg</a></li>
+<li><a href="#org731d316">13.1. Install package ffmpeg</a></li>
+<li><a href="#org8deda39">13.2. HLS.js</a>
+<ul>
+<li><a href="#org680c828">13.2.1. HLS.js  Demo</a></li>
+<li><a href="#org44b802e">13.2.2. Get the hls.js file</a></li>
+<li><a href="#org1922c6a">13.2.3. Creating HLS Playlists (m3u8) using FFmpeg</a></li>
+<li><a href="#orgada3c19">13.2.4. Example</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org186c8e4" class="outline-2">
-<h2 id="org186c8e4"><span class="section-number-2">1</span> A sample project in Common Lisp</h2>
+<div id="outline-container-org1380e0f" class="outline-2">
+<h2 id="org1380e0f"><span class="section-number-2">1.</span> A sample project in Common Lisp</h2>
 </div>
-<div id="outline-container-org62b9e7b" class="outline-2">
-<h2 id="org62b9e7b"><span class="section-number-2">2</span> Create the project</h2>
+<div id="outline-container-orge079352" class="outline-2">
+<h2 id="orge079352"><span class="section-number-2">2.</span> Create the project</h2>
 </div>
-<div id="outline-container-org21544ff" class="outline-2">
-<h2 id="org21544ff"><span class="section-number-2">3</span> First we need to load quickproject</h2>
+<div id="outline-container-org6fc25c9" class="outline-2">
+<h2 id="org6fc25c9"><span class="section-number-2">3.</span> First we need to load quickproject</h2>
 <div class="outline-text-2" id="text-3">
-<pre class="example">
+<pre class="example" id="org8e27c56">
 (ql:quickload "quickproject")
 To load "quickproject":
   Load 1 ASDF system:
@@ -293,10 +275,10 @@ To load "quickproject":
 </pre>
 </div>
 </div>
-<div id="outline-container-org17f99f7" class="outline-2">
-<h2 id="org17f99f7"><span class="section-number-2">4</span> Create the project called metl under the directory ~/src/lisp/</h2>
+<div id="outline-container-orgd62c2f9" class="outline-2">
+<h2 id="orgd62c2f9"><span class="section-number-2">4.</span> Create the project called metl under the directory ~/src/lisp/</h2>
 <div class="outline-text-2" id="text-4">
-<pre class="example">
+<pre class="example" id="org9a0fdca">
 
 (quickproject:make-project #p"~/src/lisp/metl/" :depends-on '(hunchentoot yaclml parenscript postmodern))
 
@@ -315,20 +297,20 @@ quickproject has created some files:
 </div>
 </div>
 
-<div id="outline-container-org873ae59" class="outline-2">
-<h2 id="org873ae59"><span class="section-number-2">5</span> Create the src directory under ~/src/lisp/metl/</h2>
+<div id="outline-container-org67fc6e5" class="outline-2">
+<h2 id="org67fc6e5"><span class="section-number-2">5.</span> Create the src directory under ~/src/lisp/metl/</h2>
 <div class="outline-text-2" id="text-5">
-<pre class="example">
+<pre class="example" id="org627d67c">
 mkdir src 
 
 </pre>
 </div>
 </div>
 
-<div id="outline-container-org926162b" class="outline-2">
-<h2 id="org926162b"><span class="section-number-2">6</span> Create the directories under ~/src/lisp/metl/src/</h2>
+<div id="outline-container-orgba4b333" class="outline-2">
+<h2 id="orgba4b333"><span class="section-number-2">6.</span> Create the directories under ~/src/lisp/metl/src/</h2>
 <div class="outline-text-2" id="text-6">
-<pre class="example">
+<pre class="example" id="org3be7dbf">
 cd src
 
 mkdir app web-server
@@ -337,10 +319,10 @@ mkdir app web-server
 </div>
 </div>
 
-<div id="outline-container-orgd66fac3" class="outline-2">
-<h2 id="orgd66fac3"><span class="section-number-2">7</span> Create the directories under ~/src/lisp/metl/src/app/</h2>
+<div id="outline-container-orgd097026" class="outline-2">
+<h2 id="orgd097026"><span class="section-number-2">7.</span> Create the directories under ~/src/lisp/metl/src/app/</h2>
 <div class="outline-text-2" id="text-7">
-<pre class="example">
+<pre class="example" id="org55c4318">
 cd ~/src/lisp/metl/src/app/
 
 mkdir model view controller
@@ -348,17 +330,17 @@ mkdir model view controller
 </div>
 </div>
 
-<div id="outline-container-orgfbf31c1" class="outline-2">
-<h2 id="orgfbf31c1"><span class="section-number-2">8</span> Move  metl.lisp package.lisp files to src directory</h2>
+<div id="outline-container-org6f53958" class="outline-2">
+<h2 id="org6f53958"><span class="section-number-2">8.</span> Move  metl.lisp package.lisp files to src directory</h2>
 <div class="outline-text-2" id="text-8">
-<pre class="example">
+<pre class="example" id="org3977ce7">
 cd ~/src/lisp/metl
 cp metl.lisp package.lisp src
 </pre>
 </div>
 </div>
-<div id="outline-container-orgda5bf43" class="outline-2">
-<h2 id="orgda5bf43"><span class="section-number-2">9</span> Working with ASD</h2>
+<div id="outline-container-org7715412" class="outline-2">
+<h2 id="org7715412"><span class="section-number-2">9.</span> Working with ASD</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 ASDF is what Common Lisp hackers use to build and load software.
@@ -391,7 +373,7 @@ and
 so the met.asd file has:
 </p>
 
-<pre class="example">
+<pre class="example" id="orgf633eb6">
 (asdf:defsystem #:metl
   :description "A sample project in Common Lisp"
   :author "Juan Reynoso juan@ikkiware.com"
@@ -436,10 +418,10 @@ If you explore each directory you will see some lisp files.
 </div>
 </div>
 
-<div id="outline-container-org37fc72e" class="outline-2">
-<h2 id="org37fc72e"><span class="section-number-2">10</span> Load the project</h2>
+<div id="outline-container-org330ea51" class="outline-2">
+<h2 id="org330ea51"><span class="section-number-2">10.</span> Load the project</h2>
 <div class="outline-text-2" id="text-10">
-<pre class="example">
+<pre class="example" id="org09a81a2">
 (ql:quickload "metl")
 To load "metl":
   Load 1 ASDF system:
@@ -451,25 +433,25 @@ To load "metl":
 </div>
 </div>
 
-<div id="outline-container-org4ff3332" class="outline-2">
-<h2 id="org4ff3332"><span class="section-number-2">11</span> Use the package</h2>
+<div id="outline-container-org6b794f0" class="outline-2">
+<h2 id="org6b794f0"><span class="section-number-2">11.</span> Use the package</h2>
 <div class="outline-text-2" id="text-11">
-<pre class="example">
+<pre class="example" id="org4ac8a26">
 (in-package :metl)
 </pre>
 </div>
 </div>
 
-<div id="outline-container-orgb12cd4d" class="outline-2">
-<h2 id="orgb12cd4d"><span class="section-number-2">12</span> Start the web server</h2>
+<div id="outline-container-orgf858b97" class="outline-2">
+<h2 id="orgf858b97"><span class="section-number-2">12.</span> Start the web server</h2>
 <div class="outline-text-2" id="text-12">
-<pre class="example">
+<pre class="example" id="org5fe164e">
 (start-web-server)
 </pre>
 </div>
 
-<div id="outline-container-orgf91bbea" class="outline-3">
-<h3 id="orgf91bbea"><span class="section-number-3">12.1</span> Open you browser:</h3>
+<div id="outline-container-org85ea136" class="outline-3">
+<h3 id="org85ea136"><span class="section-number-3">12.1.</span> Open you browser:</h3>
 <div class="outline-text-3" id="text-12-1">
 <p>
 <a href="http://localhost:8090/index.html">http://localhost:8090/index.html</a>
@@ -482,8 +464,8 @@ or
 
 
 
-<div id="outline-container-org3dadb9b" class="outline-2">
-<h2 id="org3dadb9b"><span class="section-number-2">13</span> HTTP live streaming</h2>
+<div id="outline-container-orgdb81ad6" class="outline-2">
+<h2 id="orgdb81ad6"><span class="section-number-2">13.</span> HTTP live streaming</h2>
 <div class="outline-text-2" id="text-13">
 <p>
 HTTP live streaming (HLS) is a widely used video streaming protocol that can run on
@@ -510,21 +492,61 @@ You can read the web page:
 </p>
 </div>
 
-<div id="outline-container-org8400f37" class="outline-3">
-<h3 id="org8400f37"><span class="section-number-3">13.1</span> Install package ffmpeg</h3>
+<div id="outline-container-org731d316" class="outline-3">
+<h3 id="org731d316"><span class="section-number-3">13.1.</span> Install package ffmpeg</h3>
 <div class="outline-text-3" id="text-13-1">
-<pre class="example">
+<p>
+FFmpeg: Tools for transcoding, streaming and playing of multimedia files
+</p>
+
+<p>
+FFmpeg is the leading multimedia framework, able to decode, encode, transcode, mux, demux,
+</p>
+
+<p>
+stream, filter and play pretty much anything that humans and machines havecreated. It supports
+</p>
+
+<p>
+the most obscure ancient formats up to the cutting edge.
+</p>
+
+<p>
+<a href="https://ffmpeg.org/">https://ffmpeg.org/</a>
+</p>
+
+<pre class="example" id="org13685ab">
 aptitude install ffmpeg
 </pre>
 </div>
 </div>
 
-
-<div id="outline-container-org2c9c154" class="outline-3">
-<h3 id="org2c9c154"><span class="section-number-3">13.2</span> Get the hls.js file</h3>
+<div id="outline-container-org8deda39" class="outline-3">
+<h3 id="org8deda39"><span class="section-number-3">13.2.</span> HLS.js</h3>
 <div class="outline-text-3" id="text-13-2">
 <p>
-The last version is: v1.0.7.
+HLS.js is a JavaScript library that implements an HTTP Live Streaming client. It relies on HTML5 video and MediaSource Extensions for playback.
+</p>
+
+<p>
+<a href="https://github.com/video-dev/hls.js">https://github.com/video-dev/hls.js</a>
+</p>
+</div>
+
+<div id="outline-container-org680c828" class="outline-4">
+<h4 id="org680c828"><span class="section-number-4">13.2.1.</span> HLS.js  Demo</h4>
+<div class="outline-text-4" id="text-13-2-1">
+<p>
+<a href="https://hls-js.netlify.com/demo">https://hls-js.netlify.com/demo</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-org44b802e" class="outline-4">
+<h4 id="org44b802e"><span class="section-number-4">13.2.2.</span> Get the hls.js file</h4>
+<div class="outline-text-4" id="text-13-2-2">
+<p>
+The last version is: v1.2.0.
 </p>
 
 <p>
@@ -544,29 +566,43 @@ you can see the files hls.js and hls.min.js
 </p>
 
 <p>
-So you need copy the file to wwwroot/js directory.
+So you need to copy the file hls.min.js to wwwroot/js directory.
 </p>
 </div>
 </div>
 
-<div id="outline-container-org17ee62e" class="outline-3">
-<h3 id="org17ee62e"><span class="section-number-3">13.3</span> Creating HLS Playlists (m3u8) using FFmpeg</h3>
-<div class="outline-text-3" id="text-13-3">
+<div id="outline-container-org1922c6a" class="outline-4">
+<h4 id="org1922c6a"><span class="section-number-4">13.2.3.</span> Creating HLS Playlists (m3u8) using FFmpeg</h4>
+<div class="outline-text-4" id="text-13-2-3">
 <p>
 You need to create the directory hls-video under wwwroot/video/
 </p>
 
-<pre class="example">
+<pre class="example" id="orgd2ef1a1">
 ffmpeg -i big_buck_bunny.mp4 -c:v libx264 -crf 27 -preset veryfast -c:a aac -b:a 128k -f hls -hls_time 6 -hls_playlist_type event hls-video/index.m3u8
 </pre>
+</div>
+</div>
+
+<div id="outline-container-orgada3c19" class="outline-4">
+<h4 id="orgada3c19"><span class="section-number-4">13.2.4.</span> Example</h4>
+<div class="outline-text-4" id="text-13-2-4">
+<p>
+In order to see the HLS example copy and paste the link in your browser:
+</p>
+
+<p>
+<a href="http://localhost:8090/video-hls.html">http://localhost:8090/video-hls.html</a>
+</p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: jreynoso</p>
-<p class="date">Created: 2021-07-14 mié 17:58</p>
-<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+<p class="date">Created: 2022-08-01 lun 14:17</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>
