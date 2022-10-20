@@ -199,7 +199,14 @@ You need to create the directory hls-video under wwwroot/video/
 ffmpeg -i big_buck_bunny.mp4 -c:v libx264 -crf 27 -preset veryfast -c:a aac -b:a 128k -f hls -hls_time 6 -hls_playlist_type event hls-video/index.m3u8
 #+end_example
 
-*** Example
-In order to see the HLS example copy and paste the link in your browser:
+*** Examples
+In order to see the examples copy and paste the link in your browser:
 
+**** Login
+http://localhost:8090/index.html
+
+**** HLS
 http://localhost:8090/video-hls.html
+
+**** Ajax with jquery
+http://localhost:8090/ajax-example.html
