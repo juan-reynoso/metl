@@ -69,7 +69,7 @@ and
 
 (:file "a-file") is a lisp file
 
-so the met.asd file has:
+so the metl.asd file has:
 
 #+begin_example
 (asdf:defsystem #:metl
