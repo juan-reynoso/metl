@@ -180,7 +180,7 @@ https://github.com/video-dev/hls.js
 https://hls-js.netlify.com/demo
     
 *** Get the hls.js file
-The last version is: v1.2.0.
+The last version is: v1.2.8.
 
 You need to dowload the file release.zip.
 
